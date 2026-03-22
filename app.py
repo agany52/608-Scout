@@ -137,7 +137,7 @@ st.markdown("<p style='color: #334155; font-weight: 600; margin-bottom: 24px;'>P
 # --- Agent Functions ---
 def fetch_weather(date_obj):
     start_str = date_obj.strftime("%Y-%m-%d")
-    url = f"https://api.open-meteo.com/v1/forecast?latitude=43.0731&longitude=-89.4012&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America%2FChicago&start_date={start_str}&end_date={start_str}"
+    url = f"https://api.open-meteo.com/v1/forecast?latitude=43.0731&longitude=-89.4012&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America%2FChicago&temperature_unit=fahrenheit&precipitation_unit=inch&start_date={start_str}&end_date={start_str}"
     try:
         r = requests.get(url)
         data = r.json()
@@ -145,15 +145,15 @@ def fetch_weather(date_obj):
             high = data['daily']['temperature_2m_max'][0]
             low = data['daily']['temperature_2m_min'][0]
             precip = data['daily']['precipitation_sum'][0]
-            return f"High: {high}°C, Low: {low}°C, Precipitation: {precip}mm"
+            return f"High: {high}°F, Low: {low}°F, Precipitation: {precip}in"
         else:
-            url_arch = f"https://archive-api.open-meteo.com/v1/archive?latitude=43.0731&longitude=-89.4012&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America%2FChicago&start_date={start_str}&end_date={start_str}"
+            url_arch = f"https://archive-api.open-meteo.com/v1/archive?latitude=43.0731&longitude=-89.4012&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America%2FChicago&temperature_unit=fahrenheit&precipitation_unit=inch&start_date={start_str}&end_date={start_str}"
             r_arch = requests.get(url_arch)
             data_arch = r_arch.json()
             high = data_arch['daily']['temperature_2m_max'][0]
             low = data_arch['daily']['temperature_2m_min'][0]
             precip = data_arch['daily']['precipitation_sum'][0]
-            return f"Historical High: {high}°C, Low: {low}°C, Precipitation: {precip}mm"
+            return f"Historical High: {high}°F, Low: {low}°F, Precipitation: {precip}in"
     except Exception as e:
         return "Weather data unavailable for this date."
 
