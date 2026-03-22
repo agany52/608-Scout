@@ -33,10 +33,18 @@ st.markdown("""
         text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
     }
     
-    .stTextInput > div > div > input, .stDateInput > div > div > input {
-        background: rgba(255, 255, 255, 0.6) !important;
-        border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    [data-baseweb="input"] {
+        background-color: rgba(255, 255, 255, 0.45) !important;
+        border-radius: 20px !important;
+        border: 1px solid rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+    [data-baseweb="input"] input {
         color: #1e293b !important;
+    }
+    /* Ensure the eye icon background is transparent */
+    [data-baseweb="input"] > div {
+        background-color: transparent !important;
     }
     .stButton > button {
         background: rgba(255, 255, 255, 0.4) !important;
@@ -129,7 +137,7 @@ with col2:
     api_key_secret = st.secrets.get("GEMINI_API_KEY", "")
     if api_key_secret:
         api_key = api_key_secret
-        st.success("Gemini API Key securely loaded from secrets!")
+        st.markdown("<p style='padding-top: 32px; color: #334155; font-weight: 600;'>Powered by Google Gemini API ✨</p>", unsafe_allow_html=True)
     else:
         api_key = st.text_input("Gemini API Key:", type="password", help="Enter your free key from aistudio.google.com, or save it permanently in .streamlit/secrets.toml")
 
