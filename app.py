@@ -130,16 +130,9 @@ st.title("⛺ 608 Scout (AI Powered)")
 st.markdown("**Your dynamic guide to Madison, WI**")
 
 # Inputs
-col1, col2 = st.columns([1, 2])
-with col1:
-    selected_date = st.date_input("Select a day to scout:", datetime.date.today())
-with col2:
-    api_key_secret = st.secrets.get("GEMINI_API_KEY", "")
-    if api_key_secret:
-        api_key = api_key_secret
-        st.markdown("<p style='padding-top: 32px; color: #334155; font-weight: 600;'>Powered by Google Gemini API ✨</p>", unsafe_allow_html=True)
-    else:
-        api_key = st.text_input("Gemini API Key:", type="password", help="Enter your free key from aistudio.google.com, or save it permanently in .streamlit/secrets.toml")
+selected_date = st.date_input("Select a day to scout:", datetime.date.today())
+api_key = st.secrets.get("GEMINI_API_KEY", "")
+st.markdown("<p style='color: #334155; font-weight: 600; margin-bottom: 24px;'>Powered by Google Gemini API ✨</p>", unsafe_allow_html=True)
 
 # --- Agent Functions ---
 def fetch_weather(date_obj):
